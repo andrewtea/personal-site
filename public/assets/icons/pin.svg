@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <!-- A map pin, Silk "pin" style: a green gel teardrop with a neutral-ringed eye -->
+  <defs>
+    <linearGradient id="gel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6f5da"/><stop offset=".45" stop-color="#bfe2a6"/><stop offset=".5" stop-color="#9fd07f"/><stop offset="1" stop-color="#b6dc9b"/></linearGradient>
+  </defs>
+  <path d="M8 15.3C8 15.3 2.7 9.6 2.7 5.9a5.3 5.3 0 0 1 10.6 0c0 3.7-5.3 9.4-5.3 9.4z" fill="url(#gel)" stroke="#5f9a4e"/>
+  <circle cx="8" cy="5.9" r="2.2" fill="#fffdf7" stroke="#8f8c7e"/>
+  <path d="M4.9 4.5A3.3 3.3 0 0 1 8 2.6q-2.7 1-3.1 1.9z" fill="#fff" opacity=".8"/>
+</svg>

@@ -77,17 +77,19 @@ a:focus-visible { outline: 1px dotted currentColor; outline-offset: 3px; }
 /* The avatar and name link to the member profile, like a username on a forum */
 .avatar-link { display: block; border-radius: 4px; }
 a.usertitle { text-decoration: none; }
+/* Where andrew posts from, under his name: a pin like the ones that marked spots on old forum profiles */
+.where { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); }
+.where img { display: block; }
 @media (hover: hover) {
   .avatar-link:hover .avatar { border-color: var(--theme-line); box-shadow: 0 0 0 2px rgb(134 176 108 / 35%), 0 1px 2px rgb(60 56 40 / 15%); }
   a.usertitle:hover { text-decoration: underline; }
 }
-/* The member profile's "about me" line, above its detail rows */
-.aboutme { margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px dotted var(--line); }
-.member .profile { align-items: start; }
-/* A friend's name in the bio, and the profile's detail links: plain links, the friend's led by the favicon of the site it opens, as Web 2.0 blogs marked outbound links */
-.person, .member .row a { color: var(--theme-ink); font-weight: 700; white-space: nowrap; text-decoration: underline dotted; text-underline-offset: 3px; }
+/* The about panel's bio, capped at a readable width */
+.about .body { max-width: 72ch; }
+/* A friend's name in the bio, led by the favicon of the site it opens, as Web 2.0 blogs marked outbound links */
+.person { color: var(--theme-ink); font-weight: 700; white-space: nowrap; text-decoration: underline dotted; text-underline-offset: 3px; }
 .person img { width: 14px; height: 14px; margin-right: .5ch; vertical-align: -2px; }
-@media (hover: hover) { .person:hover, .member .row a:hover { text-decoration-style: solid; } }
+@media (hover: hover) { .person:hover { text-decoration-style: solid; } }
 /* Contact icons under the name, like the AIM/MSN/ICQ buttons in a vBulletin postbit */
 .contact { display: flex; gap: 4px; margin-top: 5px; }
 .contact .gel { width: 26px; height: 22px; padding: 0; }
@@ -205,6 +207,31 @@ th.last, td.last { width: 15ch; }
 .title:hover { text-decoration: underline; }
 .by { display: block; font-size: 11px; color: var(--muted); }
 
+/* Library: a condensed shelf strip on the index — a framed cover with title and author under each.
+   auto-fit collapses empty tracks, so a half-filled row still spans the panel; .book caps the cell
+   width so a sparse shelf keeps cover sizes instead of stretching a few books huge. */
+.shelf { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; align-items: start; }
+.book { display: grid; justify-items: center; justify-self: center; max-width: 140px; gap: 4px; text-align: center; }
+.cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  /* contain, not cover: never crop a book's printed title off a wider-than-2:3 jacket */
+  object-fit: contain;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(60 56 40 / 15%);
+}
+/* A book Open Library has no cover for keeps a neutral gel slot, like a thread without an icon */
+.cover.empty { display: flex; align-items: center; justify-content: center; background: var(--gel-neutral); box-shadow: var(--hilite); }
+.cover.empty img { display: block; filter: drop-shadow(0 1px 0 rgb(255 255 255 / 70%)); }
+@media (hover: hover) {
+  .avatar-link:hover .cover { border-color: var(--theme-line); box-shadow: 0 0 0 2px rgb(134 176 108 / 35%), 0 1px 2px rgb(60 56 40 / 15%); }
+}
+.note { font-size: 12px; color: var(--muted); }
+
 /* A post, shown as a thread's opening post: the postbit beside the post body */
 .thread { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 1.25em; }
 .thread .postbit { padding-bottom: 4px; }
@@ -250,33 +277,31 @@ th.last, td.last { width: 15ch; }
     max-width: none;
     padding: 32px;
   }
-  .page:has(> .side) { grid-template-columns: minmax(0, 1fr) 280px; }
   .navbar { grid-column: 1 / -1; }
-  .side { grid-column: 2; grid-row: 2; }
-  /* Forum index: the profile and who's online stack in a left sidebar, threads fill the main column */
-  .page:has(> .threads) { grid-template-columns: 300px minmax(0, 1fr); grid-template-rows: auto auto 1fr; }
-  .threads { grid-column: 2; grid-row: 2 / span 2; }
-  .page:has(> .threads) .me { grid-column: 1; grid-row: 2; }
-  .page:has(> .threads) .side { grid-column: 1; grid-row: 3; }
+  /* Forum index: the profile and who's online stack in a left rail; the main column flows
+     about, threads, then the library shelf below them */
+  .page:has(> .threads) { grid-template-columns: 300px minmax(0, 1fr); grid-template-rows: auto auto auto auto; }
+  .rail { display: grid; align-content: start; grid-column: 1; grid-row: 2 / span 3; }
+  .about { grid-column: 2; grid-row: 2; }
+  .threads { grid-column: 2; grid-row: 3; }
+  .books { grid-column: 2; grid-row: 4; }
   .me .profile { grid-template-columns: 1fr; justify-items: center; gap: 12px; }
   .me .postbit { width: 100%; padding: 0 0 12px; border-right: 0; border-bottom: 1px solid var(--line); }
 }
 
 @media (max-width: 640px) {
   .last { display: none; }
-  /* Member profile: the postbit stacks above the details instead of squeezing them */
-  .member .profile { grid-template-columns: 1fr; gap: 12px; }
-  .member .postbit { padding: 0 0 12px; border-right: 0; border-bottom: 1px solid var(--line); }
 }
 
 @media (max-width: 480px) {
   .page { padding: 16px; }
   .row { grid-template-columns: 1fr; gap: 2px; }
   .thread { grid-template-columns: 1fr; }
-  .thread .postbit { grid-template-columns: auto auto; grid-template-areas: "avatar title" "avatar contact"; justify-content: start; justify-items: start; column-gap: 10px; padding: 0 0 12px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .thread .postbit { grid-template-columns: auto auto; grid-template-areas: "avatar title" "avatar where" "avatar contact"; justify-content: start; justify-items: start; column-gap: 10px; padding: 0 0 12px; border-right: 0; border-bottom: 1px solid var(--line); }
   .thread .postbit > :first-child { grid-area: avatar; }
   .thread .avatar { width: 64px; height: 64px; padding: 2px; }
   .thread .usertitle { grid-area: title; align-self: end; }
+  .thread .where { grid-area: where; }
   .thread .contact { grid-area: contact; align-self: start; }
   .label { text-align: left; }
 }
