@@ -1,3 +1,4 @@
+import { cpSync, existsSync } from "node:fs";
 import { defineConfig } from "astro/config";
 import { satteri } from "@astrojs/markdown-satteri";
 
@@ -19,10 +20,22 @@ const externalLinksOpenInNewTab = {
   },
 };
 
+// Astro copies public/ into dist/ before pages render, so covers the library page downloads from
+// Open Library while it renders need a second hop into the build output.
+const copyLibraryCovers = () => ({
+  name: "copy-library-covers",
+  hooks: {
+    "astro:build:done": () => {
+      if (existsSync("public/assets/covers")) cpSync("public/assets/covers", "dist/assets/covers", { recursive: true });
+    },
+  },
+});
+
 // Builds the site as plain static files into dist/, which wrangler.jsonc serves as the Worker's assets.
 export default defineConfig({
   site,
   trailingSlash: "always",
   compressHTML: false,
+  integrations: [copyLibraryCovers()],
   markdown: { syntaxHighlight: false, processor: satteri({ hastPlugins: [externalLinksOpenInNewTab] }) },
 });

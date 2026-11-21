@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <!-- A closed hardcover, Silk "book" style: neutral pages peeking past a green gel cover -->
+  <defs>
+    <linearGradient id="pages" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3d6bf"/></linearGradient>
+    <linearGradient id="cover" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4fbee"/><stop offset=".48" stop-color="#cbe8b4"/><stop offset=".52" stop-color="#a8d68a"/><stop offset="1" stop-color="#bfe2a6"/></linearGradient>
+  </defs>
+  <rect x="6" y="2" width="8.5" height="12" rx="1.5" fill="url(#pages)" stroke="#8f8c7e"/>
+  <rect x="1.5" y="2" width="9.5" height="12" rx="1.5" fill="url(#cover)" stroke="#5f9a4e"/>
+  <path d="M2.5 3h7.5a.5.5 0 0 1 .5.5v.9a.5.5 0 0 1-.5.5H2.5a.5.5 0 0 1-.5-.5V3.5a.5.5 0 0 1 .5-.5z" fill="#fff" opacity=".7"/>
+</svg>

@@ -13,4 +13,19 @@ const writing = defineCollection({
   }),
 });
 
-export const collections = { writing };
+// Each book is a Markdown file in src/content/library; its cover is fetched from Open Library by ISBN
+// when the page is built, so a new book needs no image of its own.
+const library = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/library" }),
+  schema: z.object({
+    title: z.string(),
+    author: z.string(),
+    // Written without spaces or dashes; the cover and the book's Open Library page come from it.
+    // Coerced so a bare ISBN isn't read as a YAML number.
+    isbn: z.coerce.string().regex(/^(97[89]\d{10}|\d{9}[\dX])$/i).optional(),
+    note: z.string().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { writing, library };

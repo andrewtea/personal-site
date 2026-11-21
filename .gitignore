@@ -2,3 +2,6 @@
 node_modules
 dist
 .astro
+
+# Book covers download from Open Library at build time; the ISBNs in src/content/library can always fetch them again.
+public/assets/covers
