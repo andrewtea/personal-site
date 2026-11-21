@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <!-- A mail envelope, Silk "email" style: a manila gel envelope with its flap folded down -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fef9ea"/><stop offset=".5" stop-color="#f0e1b0"/><stop offset=".52" stop-color="#e0cd8d"/><stop offset="1" stop-color="#ecdca9"/></linearGradient>
+  </defs>
+  <rect x="1" y="3.8" width="14" height="9.2" rx="1.6" fill="url(#g)" stroke="#6e6136"/>
+  <path d="M1.8 4.7 8 9.4l6.2-4.7" fill="none" stroke="#6e6136" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M2.6 3.8h10.8v2q-5.4-1.2-10.8 0z" fill="#fff" opacity=".45"/>
+</svg>
